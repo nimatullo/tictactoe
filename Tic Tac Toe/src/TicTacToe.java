@@ -21,7 +21,7 @@ public class TicTacToe {
 	
 	public static void printBoard() {
 		
-		for (String [] a : board) {
+	for (String [] a : board) {
             for (String i : a) {
                 System.out.print(i + "\t");
             }
