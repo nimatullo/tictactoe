@@ -1,62 +1,142 @@
 import java.util.*;
 public class TicTacToe {
-	
-	public static String [][] board = new String [3][3];
-	
-	public static String currentPlayer;
 
-	public static void main(String[] args) {
-		printBoard();
-		pickSpot();
-		printBoard();
-		checkWinVertical();
-	}
-	
-	public static void changePlayer() {
-		if(currentPlayer.equals("x"))
-			currentPlayer.equals("o");
-		else
-			currentPlayer.equalsIgnoreCase("x");
-	}
-	
-	public static void printBoard() {
-		
-	for (String [] a : board) {
-            for (String i : a) {
-                System.out.print(i + "\t");
-            }
-            System.out.println("\n");
-        }
- 
-		
-	}
-	
-	public static void pickSpot() {
-		Scanner scan = new Scanner(System.in);
-		
-		System.out.println("Enter x: ");
-		int x = scan.nextInt();
-		
-		System.out.println("Enter y: ");
-		int y = scan.nextInt();
-		
-		board[0][1] = "o";
-		board[0][0] = "o";
-		board[0][2] = "o";
-		
-		System.out.println(board[1][1]);
-		
-	}
-	
-	public static void checkWinVertical() {
-		
-		for(int col = 0; col < board.length; col++) {
-		
-			if((board[col][0].equals(board[col][1])) && (board[col][1].equals(board[0][2]))) {
-				System.out.println(board[0][0] + " wins!");
-			}
-		}
-		
-	}
+ public static String[][] board = {
+  {"1","2","3"},
+  {"4","5","6"},
+  {"7","8","9"}
+ };
 
+ public static int round = 1;
+
+ public static final String X_PLAYER = "X";
+ public static final String O_PLAYER = "O";
+
+ public static String currentPlayer = randomPlayerPick();
+
+
+ public static void main(String[] args) {
+
+  while (!winner()) {
+   changePlayer();
+   printBoard();
+   System.out.println(currentPlayer + "'s turn.");
+   pickSpot();
+   round++;
+  }
+  printBoard();
+ }
+
+ public static void changePlayer() {
+  if (currentPlayer.equals(O_PLAYER))
+   currentPlayer = X_PLAYER;
+  else
+   currentPlayer = O_PLAYER;
+ }
+
+ public static void printBoard() {
+
+  System.out.println("  " + board[0][0] + "  |  " + board[0][1] + "  |  " + board[0][2] + "  ");
+  System.out.println("-----|-----|-----");
+  System.out.println("  " + board[1][0] + "  |  " + board[1][1] + "  |  " + board[1][2] + "  ");
+  System.out.println("-----|-----|-----");
+  System.out.println("  " + board[2][0] + "  |  " + board[2][1] + "  |  " + board[2][2] + "  ");
+
+ }
+
+ public static void pickSpot() {
+
+  Scanner scan = new Scanner(System.in);
+
+  System.out.print("Enter Number: ");
+
+  String num = scan.next();
+
+  for (int i = 0; i < board.length; i++) {
+   for (int j = 0; j < board[i].length; j++) {
+    if (board[i][j].equals(num)) {
+     board[i][j] = currentPlayer;
+    }
+   }
+  }
+ }
+
+ public static boolean winner() {
+  if (checkWinHorizontal() || checkWinVertical() || checkWinDiagonalL() || checkWinDiagonalR()) {
+   System.out.println("Winner is " + currentPlayer);
+   return true;
+  } else if (round > 9) {
+   System.out.println("TIE!");
+   return true;
+  }
+  return false;
+ }
+
+ public static boolean checkWinHorizontal() {
+
+  for (int row = 0; row < board.length; row++) {
+   String horizontal = "";
+   for (int col = 0; col < board[row].length; col++) {
+    horizontal += board[row][col];
+   }
+
+   if (horizontal.equals("XXX") || horizontal.equals("OOO"))
+    return true;
+  }
+  return false;
+ }
+
+ public static boolean checkWinVertical() {
+
+  for (int col = 0; col < board.length; col++) {
+   String vertical = "";
+   for (int row = 0; row < board[col].length; row++) {
+    vertical += board[row][col];
+   }
+
+   if (vertical.equals("XXX") || vertical.equals("OOO"))
+    return true;
+  }
+  return false;
+ }
+
+ public static boolean checkWinDiagonalL() {
+
+  String diagonal = "";
+  int row = 0;
+  for (int j = 0; j < board[0].length; j++) {
+   diagonal += board[row][j];
+   row++;
+  }
+
+  if (diagonal.equals("XXX") || diagonal.equals("OOO")) {
+   return true;
+  } else
+   return false;
+ }
+
+ public static boolean checkWinDiagonalR() {
+
+  String diagonal = "";
+  int row = 0;
+  for (int j = board[0].length - 1; j >= 0; j--) {
+   diagonal += board[row][j];
+   row++;
+  }
+
+  if (diagonal.equals("XXX") || diagonal.equals("OOO")) {
+   return true;
+  } else
+   return false;
+ }
+
+ public static String randomPlayerPick() {
+
+  int num = (int)(Math.random() * 2);
+
+  if (num == 0) {
+   return X_PLAYER;
+  } else
+   return O_PLAYER;
+ }
 }
