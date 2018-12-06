@@ -26,6 +26,11 @@ public class TicTacToe {
   }
   printBoard();
  }
+ 
+ /* If the currentPlayer is 'O', then change the currentPlayer.
+  * If the currentPlayer is not 'O', that means the currentPlayer
+  * is 'X', therefore, changing it to 'X'
+  */
 
  public static void changePlayer() {
   if (currentPlayer.equals(O_PLAYER))
@@ -35,12 +40,15 @@ public class TicTacToe {
  }
 
  public static void printBoard() {
-
-  System.out.println("  " + board[0][0] + "  |  " + board[0][1] + "  |  " + board[0][2] + "  ");
-  System.out.println("-----|-----|-----");
-  System.out.println("  " + board[1][0] + "  |  " + board[1][1] + "  |  " + board[1][2] + "  ");
-  System.out.println("-----|-----|-----");
-  System.out.println("  " + board[2][0] + "  |  " + board[2][1] + "  |  " + board[2][2] + "  ");
+	 System.out.println("  |-----------------|");
+	 
+	for(int row = 0; row < board[0].length; row++) {
+		for(int col = 0; col < board[0].length; col++) {
+			System.out.print("  |  " + board[row][col]);
+	}
+		System.out.println("  |\n  |-----|-----|-----|");
+	}
+	 
 
  }
 
