@@ -1,4 +1,9 @@
 import java.util.*;
+
+/**
+ * @author: Sherzod Nimatullo
+ */
+
 public class TicTacToe {
 
  public static String[][] board = {
@@ -7,11 +12,21 @@ public class TicTacToe {
   {"7","8","9"}
  };
 
+ /**
+  * Keeps track of round numbers.
+  */
  public static int round = 1;
-
+ /**
+  * The X mark
+  */
  public static final String X_PLAYER = "X";
+ /**
+  * The O Mark
+  */
  public static final String O_PLAYER = "O";
-
+ /**
+  * The current player. Assigned by method that determines the first move.
+  */
  public static String currentPlayer = randomPlayerPick();
 
 
@@ -27,18 +42,21 @@ public class TicTacToe {
   printBoard();
  }
  
- /* If the currentPlayer is 'O', then change the currentPlayer.
+ /**
+  * If the currentPlayer is 'O', then change the currentPlayer.
   * If the currentPlayer is not 'O', that means the currentPlayer
   * is 'X', therefore, changing it to 'X'
   */
-
  public static void changePlayer() {
   if (currentPlayer.equals(O_PLAYER))
    currentPlayer = X_PLAYER;
   else
    currentPlayer = O_PLAYER;
  }
-
+ 
+/**
+ * Prints the board to console
+ */
  public static void printBoard() {
 	 System.out.println("  |-----------------|");
 	 
@@ -48,10 +66,11 @@ public class TicTacToe {
 	}
 		System.out.println("  |\n  |-----|-----|-----|");
 	}
-	 
-
  }
 
+ /**
+  * Allows user to input location where they'd like their mark to be placed
+  */
  public static void pickSpot() {
 
   Scanner scan = new Scanner(System.in);
@@ -69,6 +88,10 @@ public class TicTacToe {
   }
  }
 
+ /**
+  * Determines if the there is a winner after round ends.
+  * @return boolean (true/false)
+  */
  public static boolean winner() {
   if (checkWinHorizontal() || checkWinVertical() || checkWinDiagonalL() || checkWinDiagonalR()) {
    System.out.println("Winner is " + currentPlayer);
@@ -80,6 +103,10 @@ public class TicTacToe {
   return false;
  }
 
+ /**
+  * Determines if there is a a row with 3 marks that are the same.
+  * @return true if there is 3 in a row, false if not.
+  */
  public static boolean checkWinHorizontal() {
 
   for (int row = 0; row < board.length; row++) {
@@ -94,6 +121,10 @@ public class TicTacToe {
   return false;
  }
 
+ /**
+  * Determines if there is a column with 3 marks that are the same.
+  * @return true if there is a 3 in a column, false if not.
+  */
  public static boolean checkWinVertical() {
 
   for (int col = 0; col < board.length; col++) {
@@ -108,6 +139,10 @@ public class TicTacToe {
   return false;
  }
 
+ /**
+  * Determines if there are 3 marks that are diagonal on the board.
+  * @return true if there are 3 marks that span from the left to the right, false if not.
+  */
  public static boolean checkWinDiagonalL() {
 
   String diagonal = "";
@@ -123,6 +158,10 @@ public class TicTacToe {
    return false;
  }
 
+ /**
+  * Determines if there are 3 marks that are diagonal on the board.
+  * @return true if there are 3 marks that span from the right to the left, false if not.
+  */
  public static boolean checkWinDiagonalR() {
 
   String diagonal = "";
@@ -138,6 +177,11 @@ public class TicTacToe {
    return false;
  }
 
+/**
+ * Determines first move by generating a number number from 0 to 1. If it is a zero, 
+ * X mark goes first, else, O mark goes first.
+ * @return player that is going first.
+ */
  public static String randomPlayerPick() {
 
   int num = (int)(Math.random() * 2);
