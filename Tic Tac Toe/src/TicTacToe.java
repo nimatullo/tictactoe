@@ -13,7 +13,7 @@ public class TicTacToe {
  };
 
  /**
-  * Keeps track of round numbers.
+  * Keeps track of number of rounds.
   */
  public static int round = 1;
  /**
@@ -41,7 +41,7 @@ public class TicTacToe {
   }
   printBoard();
  }
- 
+
  /**
   * If the currentPlayer is 'O', then change the currentPlayer.
   * If the currentPlayer is not 'O', that means the currentPlayer
@@ -53,19 +53,19 @@ public class TicTacToe {
   else
    currentPlayer = O_PLAYER;
  }
- 
-/**
- * Prints the board to console
- */
+
+ /**
+  * Prints the board to console
+  */
  public static void printBoard() {
-	 System.out.println("  |-----------------|");
-	 
-	for(int row = 0; row < board[0].length; row++) {
-		for(int col = 0; col < board[0].length; col++) {
-			System.out.print("  |  " + board[row][col]);
-	}
-		System.out.println("  |\n  |-----|-----|-----|");
-	}
+  System.out.println("  |-----------------|");
+
+  for (int row = 0; row < board[0].length; row++) {
+   for (int col = 0; col < board[0].length; col++) {
+    System.out.print("  |  " + board[row][col]);
+   }
+   System.out.println("  |\n  |-----|-----|-----|");
+  }
  }
 
  /**
@@ -177,11 +177,11 @@ public class TicTacToe {
    return false;
  }
 
-/**
- * Determines first move by generating a number number from 0 to 1. If it is a zero, 
- * X mark goes first, else, O mark goes first.
- * @return player that is going first.
- */
+ /**
+  * Determines first move by generating a number number from 0 to 1. If it is a zero, 
+  * X mark goes first, else, O mark goes first.
+  * @return player that is going first.
+  */
  public static String randomPlayerPick() {
 
   int num = (int)(Math.random() * 2);
