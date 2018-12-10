@@ -183,6 +183,26 @@ public class TicTacToe {
  
  public static void pickCPU() {
 	 
+	 for(int col = 0; col < board.length; col++) {
+		 int coleval = 0; 
+		 for(int row = 0; row < board[0].length; row++) {
+			 if(board[row][col].equals(O_PLAYER)) {
+				 coleval += 100;
+			 }
+			 else if(board[row][col].equals(COMPUTER_PLAYER)) {
+				 coleval -= 100;
+			 }
+		 }
+		 if(coleval == -200) {
+			 winBlock(col, "col");
+			 return;
+		 }
+		 else if(coleval == 200) {
+			 winBlock(col, "col");
+			 return;
+		 }
+	 }
+	 
 	 for(int row = 0; row < board.length; row++) {
 		 int roweval = 0;
 		 for(int col = 0; col < board[0].length; col++) {
@@ -193,9 +213,13 @@ public class TicTacToe {
 				 roweval -= 100;
 			 }
 		 }
-		 if(roweval == 200)
+		 if(roweval == -200) {
+			 winBlock(row, "row");
+			 return;
+		 }
+		 else if(roweval == 200)
 		 {
-			 winBlock(row);
+			 winBlock(row, "row");
 			 return;
 		 }
 	 }
@@ -216,13 +240,21 @@ public class TicTacToe {
  }
  
  
- public static void winBlock(int row) {
-	 for(int i = 0; i < board[row].length; i++) {
-		 if(!board[row][i].equals(COMPUTER_PLAYER) && !board[row][i].equals(O_PLAYER)) {
-			 board[row][i] = COMPUTER_PLAYER;
-			 return;
+ public static void winBlock(int list, String rowCol) {
+	 if(rowCol.equals("row"))
+		 for(int i = 0; i < board[list].length; i++) {
+			 if(!board[list][i].equals(COMPUTER_PLAYER) && !board[list][i].equals(O_PLAYER)) {
+				 board[list][i] = COMPUTER_PLAYER;
+				 return;
+			 }
 		 }
-	 }
+	 else if(rowCol.equals("col"))
+		 for(int i = 0; i < board[0].length; i++) {
+			 if(!board[i][list].equals(COMPUTER_PLAYER) && !board[i][list].equals(O_PLAYER)) {
+				 board[i][list] = COMPUTER_PLAYER;
+				 return;
+			 }
+		 }
  }
 
  /**
