@@ -19,12 +19,12 @@ public class TicTacToe {
  /**
   * The X mark
   */
- public static final String X_PLAYER = "X";
+ public static final String COMPUTER_PLAYER = "X";
  /**
   * The O Mark
   */
  public static final String O_PLAYER = "O";
- /**
+  /**
   * The current player. Assigned by method that determines the first move.
   */
  public static String currentPlayer = randomPlayerPick();
@@ -36,7 +36,11 @@ public class TicTacToe {
    changePlayer();
    printBoard();
    System.out.println(currentPlayer + "'s turn.");
-   pickSpot();
+   if(currentPlayer.equals(O_PLAYER)) {
+	   pickSpot();
+   }
+   else
+	   pickCPU();
    round++;
   }
   printBoard();
@@ -49,7 +53,7 @@ public class TicTacToe {
   */
  public static void changePlayer() {
   if (currentPlayer.equals(O_PLAYER))
-   currentPlayer = X_PLAYER;
+   currentPlayer = COMPUTER_PLAYER;
   else
    currentPlayer = O_PLAYER;
  }
@@ -176,6 +180,50 @@ public class TicTacToe {
   } else
    return false;
  }
+ 
+ public static void pickCPU() {
+	 
+	 for(int row = 0; row < board.length; row++) {
+		 int roweval = 0;
+		 for(int col = 0; col < board[0].length; col++) {
+			 if(board[row][col].equals(O_PLAYER)) {
+				roweval += 100; 
+			 }
+			 else if(board[row][col].equals(COMPUTER_PLAYER)) {
+				 roweval -= 100;
+			 }
+		 }
+		 if(roweval == 200)
+		 {
+			 winBlock(row);
+			 return;
+		 }
+	 }
+	 
+	 if(!board[1][1].equals(COMPUTER_PLAYER) && !board[1][1].equals(O_PLAYER)) {
+		 board[1][1] = (COMPUTER_PLAYER);
+		 return;
+	 }
+	 
+	 for(int i = 0; i < board.length; i++) {
+			for(int j = 0; j < board[0].length; j++) {
+				if(!board[i][j].equals(COMPUTER_PLAYER) && !board[i][j].equals(O_PLAYER)) {
+					board[i][j] = "X";
+					return;
+				}
+			}
+		}
+ }
+ 
+ 
+ public static void winBlock(int row) {
+	 for(int i = 0; i < board[row].length; i++) {
+		 if(!board[row][i].equals(COMPUTER_PLAYER) && !board[row][i].equals(O_PLAYER)) {
+			 board[row][i] = COMPUTER_PLAYER;
+			 return;
+		 }
+	 }
+ }
 
  /**
   * Determines first move by generating a number number from 0 to 1. If it is a zero, 
@@ -187,7 +235,7 @@ public class TicTacToe {
   int num = (int)(Math.random() * 2);
 
   if (num == 0) {
-   return X_PLAYER;
+   return COMPUTER_PLAYER;
   } else
    return O_PLAYER;
  }
