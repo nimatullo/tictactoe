@@ -24,7 +24,7 @@ public class TicTacToe {
   * The O Mark
   */
  public static final String O_PLAYER = "O";
-  /**
+ /**
   * The current player. Assigned by method that determines the first move.
   */
  public static String currentPlayer = randomPlayerPick();
@@ -36,11 +36,10 @@ public class TicTacToe {
    changePlayer();
    printBoard();
    System.out.println(currentPlayer + "'s turn.");
-   if(currentPlayer.equals(O_PLAYER)) {
-	   pickSpot();
-   }
-   else
-	   pickCPU();
+   if (currentPlayer.equals(O_PLAYER)) {
+    pickSpot();
+   } else
+    pickCPU();
    round++;
   }
   printBoard();
@@ -180,81 +179,111 @@ public class TicTacToe {
   } else
    return false;
  }
- 
+
+ /**
+  * Picks move for CPU
+  */
  public static void pickCPU() {
-	 
-	 for(int col = 0; col < board.length; col++) {
-		 int coleval = 0; 
-		 for(int row = 0; row < board[0].length; row++) {
-			 if(board[row][col].equals(O_PLAYER)) {
-				 coleval += 100;
-			 }
-			 else if(board[row][col].equals(COMPUTER_PLAYER)) {
-				 coleval -= 100;
-			 }
-		 }
-		 if(coleval == -200) {
-			 winBlock(col, "col");
-			 return;
-		 }
-		 else if(coleval == 200) {
-			 winBlock(col, "col");
-			 return;
-		 }
-	 }
-	 
-	 for(int row = 0; row < board.length; row++) {
-		 int roweval = 0;
-		 for(int col = 0; col < board[0].length; col++) {
-			 if(board[row][col].equals(O_PLAYER)) {
-				roweval += 100; 
-			 }
-			 else if(board[row][col].equals(COMPUTER_PLAYER)) {
-				 roweval -= 100;
-			 }
-		 }
-		 if(roweval == -200) {
-			 winBlock(row, "row");
-			 return;
-		 }
-		 else if(roweval == 200)
-		 {
-			 winBlock(row, "row");
-			 return;
-		 }
-	 }
-	 
-	 if(!board[1][1].equals(COMPUTER_PLAYER) && !board[1][1].equals(O_PLAYER)) {
-		 board[1][1] = (COMPUTER_PLAYER);
-		 return;
-	 }
-	 
-	 for(int i = 0; i < board.length; i++) {
-			for(int j = 0; j < board[0].length; j++) {
-				if(!board[i][j].equals(COMPUTER_PLAYER) && !board[i][j].equals(O_PLAYER)) {
-					board[i][j] = "X";
-					return;
-				}
-			}
-		}
+
+  for (int col = 0; col < board.length; col++) {
+   int coleval = 0;
+   for (int row = 0; row < board[0].length; row++) {
+    if (board[row][col].equals(O_PLAYER)) {
+     coleval += 100;
+    } else if (board[row][col].equals(COMPUTER_PLAYER)) {
+     coleval -= 100;
+    }
+   }
+   if (coleval == -200) {
+    winBlock(col, "col");
+    return;
+   } else if (coleval == 200) {
+    winBlock(col, "col");
+    return;
+   }
+  }
+
+  for (int row = 0; row < board.length; row++) {
+   int roweval = 0;
+   for (int col = 0; col < board[0].length; col++) {
+    if (board[row][col].equals(O_PLAYER)) {
+     roweval += 100;
+    } else if (board[row][col].equals(COMPUTER_PLAYER)) {
+     roweval -= 100;
+    }
+   }
+   if (roweval == -200) {
+    winBlock(row, "row");
+    return;
+   } else if (roweval == 200) {
+    winBlock(row, "row");
+    return;
+   }
+  }
+
+  if (!board[1][1].equals(COMPUTER_PLAYER) && !board[1][1].equals(O_PLAYER)) {
+   board[1][1] = (COMPUTER_PLAYER);
+   return;
+  }
+
+  if (board[1][1].equals(COMPUTER_PLAYER)) {
+   if (board[0][0].equals(COMPUTER_PLAYER) || board[0][2].equals(COMPUTER_PLAYER)) {
+    for (int col = 0; col < 3; col += 2) {
+     if (!board[2][col].equals(COMPUTER_PLAYER) && !board[2][col].equals(O_PLAYER)) {
+      board[2][col] = COMPUTER_PLAYER;
+      return;
+     }
+    }
+   } else {
+    for (int col = 0; col < 3; col += 2) {
+     if (!board[0][col].equals(COMPUTER_PLAYER) && !board[0][col].equals(O_PLAYER)) {
+      board[0][col] = COMPUTER_PLAYER;
+      return;
+     }
+    }
+   }
+
+  }
+
+  for (int i = 0; i < 3; i += 2) {
+   for (int j = 0; j < 3; j += 2) {
+    if (!board[i][j].equals(COMPUTER_PLAYER) && !board[i][j].equals(O_PLAYER)) {
+     board[i][j] = COMPUTER_PLAYER;
+     return;
+    }
+   }
+  }
+
+  for (int i = 0; i < board.length; i++) {
+   for (int j = 0; j < board[0].length; j++) {
+    if (!board[i][j].equals(COMPUTER_PLAYER) && !board[i][j].equals(O_PLAYER)) {
+     board[i][j] = "X";
+     return;
+    }
+   }
+  }
  }
- 
- 
+
+/**
+ * Determines if the CPU can make winning play or block player from winning.
+ * @param list is the row/col where the move was last made
+ * @param rowCol is a String indicating if the possible winning/blocking move is in a row or column
+ */
  public static void winBlock(int list, String rowCol) {
-	 if(rowCol.equals("row"))
-		 for(int i = 0; i < board[list].length; i++) {
-			 if(!board[list][i].equals(COMPUTER_PLAYER) && !board[list][i].equals(O_PLAYER)) {
-				 board[list][i] = COMPUTER_PLAYER;
-				 return;
-			 }
-		 }
-	 else if(rowCol.equals("col"))
-		 for(int i = 0; i < board[0].length; i++) {
-			 if(!board[i][list].equals(COMPUTER_PLAYER) && !board[i][list].equals(O_PLAYER)) {
-				 board[i][list] = COMPUTER_PLAYER;
-				 return;
-			 }
-		 }
+  if (rowCol.equals("row"))
+   for (int i = 0; i < board[list].length; i++) {
+    if (!board[list][i].equals(COMPUTER_PLAYER) && !board[list][i].equals(O_PLAYER)) {
+     board[list][i] = COMPUTER_PLAYER;
+     return;
+    }
+   }
+  else if (rowCol.equals("col"))
+   for (int i = 0; i < board[0].length; i++) {
+    if (!board[i][list].equals(COMPUTER_PLAYER) && !board[i][list].equals(O_PLAYER)) {
+     board[i][list] = COMPUTER_PLAYER;
+     return;
+    }
+   }
  }
 
  /**
@@ -271,4 +300,4 @@ public class TicTacToe {
   } else
    return O_PLAYER;
  }
-}
+ }
