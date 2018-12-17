@@ -23,7 +23,7 @@ public class TicTacToe {
  /**
   * The O Mark
   */
- public static final String O_PLAYER = "O";
+ public static final String HUM_PLAYER = "O";
  /**
   * The current player. Assigned by method that determines the first move.
   */
@@ -36,7 +36,7 @@ public class TicTacToe {
    changePlayer();
    printBoard();
    System.out.println(currentPlayer + "'s turn.");
-   if (currentPlayer.equals(O_PLAYER)) {
+   if (currentPlayer.equals(HUM_PLAYER)) {
     pickSpot();
    } else
     pickCPU();
@@ -51,10 +51,10 @@ public class TicTacToe {
   * is 'X', therefore, changing it to 'X'
   */
  public static void changePlayer() {
-  if (currentPlayer.equals(O_PLAYER))
+  if (currentPlayer.equals(HUM_PLAYER))
    currentPlayer = COMPUTER_PLAYER;
   else
-   currentPlayer = O_PLAYER;
+   currentPlayer = HUM_PLAYER;
  }
 
  /**
@@ -188,7 +188,7 @@ public class TicTacToe {
   for (int col = 0; col < board.length; col++) {
    int coleval = 0;
    for (int row = 0; row < board[0].length; row++) {
-    if (board[row][col].equals(O_PLAYER)) {
+    if (board[row][col].equals(HUM_PLAYER)) {
      coleval += 100;
     } else if (board[row][col].equals(COMPUTER_PLAYER)) {
      coleval -= 100;
@@ -206,7 +206,7 @@ public class TicTacToe {
   for (int row = 0; row < board.length; row++) {
    int roweval = 0;
    for (int col = 0; col < board[0].length; col++) {
-    if (board[row][col].equals(O_PLAYER)) {
+    if (board[row][col].equals(HUM_PLAYER)) {
      roweval += 100;
     } else if (board[row][col].equals(COMPUTER_PLAYER)) {
      roweval -= 100;
@@ -221,7 +221,7 @@ public class TicTacToe {
    }
   }
 
-  if (!board[1][1].equals(COMPUTER_PLAYER) && !board[1][1].equals(O_PLAYER)) {
+  if (!board[1][1].equals(COMPUTER_PLAYER) && !board[1][1].equals(HUM_PLAYER)) {
    board[1][1] = (COMPUTER_PLAYER);
    return;
   }
@@ -229,14 +229,14 @@ public class TicTacToe {
   if (board[1][1].equals(COMPUTER_PLAYER)) {
    if (board[0][0].equals(COMPUTER_PLAYER) || board[0][2].equals(COMPUTER_PLAYER)) {
     for (int col = 0; col < 3; col += 2) {
-     if (!board[2][col].equals(COMPUTER_PLAYER) && !board[2][col].equals(O_PLAYER)) {
+     if (!board[2][col].equals(COMPUTER_PLAYER) && !board[2][col].equals(HUM_PLAYER)) {
       board[2][col] = COMPUTER_PLAYER;
       return;
      }
     }
    } else {
     for (int col = 0; col < 3; col += 2) {
-     if (!board[0][col].equals(COMPUTER_PLAYER) && !board[0][col].equals(O_PLAYER)) {
+     if (!board[0][col].equals(COMPUTER_PLAYER) && !board[0][col].equals(HUM_PLAYER)) {
       board[0][col] = COMPUTER_PLAYER;
       return;
      }
@@ -247,7 +247,7 @@ public class TicTacToe {
 
   for (int i = 0; i < 3; i += 2) {
    for (int j = 0; j < 3; j += 2) {
-    if (!board[i][j].equals(COMPUTER_PLAYER) && !board[i][j].equals(O_PLAYER)) {
+    if (!board[i][j].equals(COMPUTER_PLAYER) && !board[i][j].equals(HUM_PLAYER)) {
      board[i][j] = COMPUTER_PLAYER;
      return;
     }
@@ -256,7 +256,7 @@ public class TicTacToe {
 
   for (int i = 0; i < board.length; i++) {
    for (int j = 0; j < board[0].length; j++) {
-    if (!board[i][j].equals(COMPUTER_PLAYER) && !board[i][j].equals(O_PLAYER)) {
+    if (!board[i][j].equals(COMPUTER_PLAYER) && !board[i][j].equals(HUM_PLAYER)) {
      board[i][j] = "X";
      return;
     }
@@ -272,14 +272,14 @@ public class TicTacToe {
  public static void winBlock(int list, String rowCol) {
   if (rowCol.equals("row"))
    for (int i = 0; i < board[list].length; i++) {
-    if (!board[list][i].equals(COMPUTER_PLAYER) && !board[list][i].equals(O_PLAYER)) {
+    if (!board[list][i].equals(COMPUTER_PLAYER) && !board[list][i].equals(HUM_PLAYER)) {
      board[list][i] = COMPUTER_PLAYER;
      return;
     }
    }
   else if (rowCol.equals("col"))
    for (int i = 0; i < board[0].length; i++) {
-    if (!board[i][list].equals(COMPUTER_PLAYER) && !board[i][list].equals(O_PLAYER)) {
+    if (!board[i][list].equals(COMPUTER_PLAYER) && !board[i][list].equals(HUM_PLAYER)) {
      board[i][list] = COMPUTER_PLAYER;
      return;
     }
@@ -287,7 +287,7 @@ public class TicTacToe {
  }
 
  /**
-  * Determines first move by generating a number number from 0 to 1. If it is a zero, 
+  * Determines first move by generating a number number from 0 to 1. If it is a zero,
   * X mark goes first, else, O mark goes first.
   * @return player that is going first.
   */
@@ -298,6 +298,6 @@ public class TicTacToe {
   if (num == 0) {
    return COMPUTER_PLAYER;
   } else
-   return O_PLAYER;
+   return HUM_PLAYER;
  }
  }
